@@ -12,32 +12,36 @@ def adicionar_tarefa(descricao, prazo=None, urgencia="Normal"):
     return tarefa
 
 def listar_tarefas():
+   # lista todas as tarefas armazenadas
     if not tarefas:
-        print("Nenhuma tarefa encontrada.")
+        print("nenhuma tarefa encontrada")
     else:
         for t in tarefas:
             print(f"[{t['id']}] {t['descricao']} - Status: {t['status']} | Prazo: {t['prazo']} | Urgência: {t['urgencia']}")
 
 def marcar_concluida(id_tarefa):
+    # marca uma tarefa específica como concluida pelo id
     for t in tarefas:
         if t["id"] == id_tarefa:
             t["status"] = "Concluída"
-            print(f"Tarefa '{t['descricao']}' concluída!")
+            print(f"tarefa '{t['descricao']}' concluída!")
             return
-    print("Tarefa não encontrada.")
+    print("tarefa não encontrada")
 
 def remover_tarefa(id_tarefa):
+    # remove uma tarefa tambem pelo id
     global tarefas
     for t in tarefas:
         if t["id"] == id_tarefa:
             tarefas.remove(t)
-            print(f"Tarefa '{t['descricao']}' removida com sucesso!")
+            print(f"tarefa '{t['descricao']}' removida com sucesso!")
             return
-    print("Tarefa não encontrada.")
+    print("tarefa não encontrada")
 
 def menu():
+    #exibe na tela o menu de opcoes
     while True:
-        print("\n===== Sistema de Gestão de Tarefas =====")
+        print("\n===== Gestão de Tarefas =====")
         print("1. Adicionar tarefa")
         print("2. Listar tarefas")
         print("3. Marcar tarefa como concluída")
@@ -47,9 +51,10 @@ def menu():
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
+            #le os dados da tarefa 
             desc = input("Descrição da tarefa: ")
-            prazo = input("Prazo (opcional, ex: 2025-08-30): ") or None
-            urg = input("Urgência (Baixa, Normal, Alta) [padrão: Normal]: ") or "Normal"
+            prazo = input("Prazo: ") or None
+            urg = input("Urgência (Baixa, Normal, Alta): ") or "Normal"
             adicionar_tarefa(desc, prazo, urg)
 
         elif opcao == "2":
@@ -60,7 +65,7 @@ def menu():
                 id_t = int(input("Digite o ID da tarefa: "))
                 marcar_concluida(id_t)
             except ValueError:
-                print("Digite um número válido.")
+                print("digite um número válido")
 
         elif opcao == "4":
             try:
@@ -70,10 +75,11 @@ def menu():
                 print("Digite um número válido.")
 
         elif opcao == "5":
-            print("Saindo do sistema... Até mais!")
+            print("Saindo do sistema...")
+            #encerra o programa 
             break
 
         else:
-            print("Opção inválida! Tente novamente.")
+            print("opção inválida! Tente novamente")
 
 menu()
